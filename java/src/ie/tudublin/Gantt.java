@@ -10,12 +10,20 @@ public class Gantt extends PApplet
 {	
 	ArrayList<Task> task = new ArrayList<Task>();
 
-	float border;
+	int days;
+	float left;
+	float margin;
+	//float pixels;
+	
 	public void settings()
 	{
 		size(800, 600);
-	}
 
+		days = 30;
+		left =  width / 6;
+		margin = width / 20;
+		//pixels = 20;
+	}
 
 	public void loadTasks()
 	{
@@ -37,41 +45,50 @@ public class Gantt extends PApplet
 	}
 
 	public void displayTasks()
-	{	
-		// float border = width * 0.05f;
-		// for (float x = 1; x < 32; x++){ 
-
-		// 	if ( x % 2 == 1){
-		// 		stroke(135,0,135);
-		// 		float x1 = map(x,1,31,border,width);
-		// 		line(x1,border,x1,height-border);
-		// 		text((int) x,x1,30);
-		// 	}else{
-		// 		stroke(135,0,135);
-		// 		float x1 = map(x,1,31,border,width);
-		// 		line(x1,border,x1,height-border);
-		// 		text((int) x,x1,30);
-		// 	}
-
-		// }
-
-
+	{
 		
+		textAlign(LEFT);
+		fill(200);
+		float text1 = 0.6f;
 
 
-//*******should be use two loops to do for one of the loop bring in side of the 30 like the 30 days
-//*******the second for loop bring the ten task but I tried many ways to do this in the whole days get dizzy;
-//*******sorry for that. if i get more time I think i can do it.
+		for(int i = 1; i <= days; i++) {
+			if (i % 2 == 0) {
 
-	public void mousePressed()
-	{
-		println("Mouse pressed");	
+				stroke(90);
+
+			} else {
+
+				stroke(150);
+
+			}
+
+			float x = map(i, 1, days, left, width - margin);
+			line(x, margin, x, height - margin); 
+			text(i, x, margin * text1);
+
+		}
+		for(int z = 0; z < task.size(); z++) {
+		
+			fill(200);
+
+			float y = map(z, 0, task.size(), 2 * margin, height - margin);
+			text(task.get(z).getTask(), margin, y);
+
 	}
+}
 
-	public void mouseDragged()
-	{
-		println("Mouse dragged");
-	}
+
+
+	// public void mousePressed()
+	// {
+	// 	println("Mouse pressed");	
+	// }
+
+	// public void mouseDragged()
+	// {
+	// 	println("Mouse dragged");
+	// }
 
 	
 	
@@ -85,5 +102,6 @@ public class Gantt extends PApplet
 	{			
 		background(0);
 		displayTasks();
+		//colorMode(HSB);
 	}
 }
