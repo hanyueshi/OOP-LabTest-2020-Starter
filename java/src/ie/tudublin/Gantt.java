@@ -14,6 +14,7 @@ public class Gantt extends PApplet
 	float left;
 	float margin;
 	//float pixels;
+	float rect;
 	
 	public void settings()
 	{
@@ -23,6 +24,7 @@ public class Gantt extends PApplet
 		left =  width / 6;
 		margin = width / 20;
 		//pixels = 20;
+		rect = 30;
 	}
 
 	public void loadTasks()
@@ -49,7 +51,10 @@ public class Gantt extends PApplet
 		
 		textAlign(LEFT);
 		fill(200);
-		float text1 = 0.6f;
+		//float text1 = 0.6f;
+		float text1 = 0.8f;
+
+		
 
 
 		for(int i = 1; i <= days; i++) {
@@ -68,13 +73,21 @@ public class Gantt extends PApplet
 			text(i, x, margin * text1);
 
 		}
+
+		int r = 5;
 		for(int z = 0; z < task.size(); z++) {
 		
 			fill(200);
-
 			float y = map(z, 0, task.size(), 2 * margin, height - margin);
 			text(task.get(z).getTask(), margin, y);
+			float color = map(z, 0, task.size(), 0, 255);
+			
+			fill(color, 255, 255);
 
+			float rectStart = map(task.get(z).getStart(), 1, days, left, width - margin);
+			float rectEnd = map(task.get(z).getEnd(), 1, days, left, width - margin);
+			float rectWidth = rectEnd - rectStart;
+			rect(rectStart, y - (rect / 2), rectWidth, rect, r); 
 	}
 }
 
@@ -102,6 +115,6 @@ public class Gantt extends PApplet
 	{			
 		background(0);
 		displayTasks();
-		//colorMode(HSB);
+		colorMode(HSB);
 	}
 }
